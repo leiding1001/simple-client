@@ -1,0 +1,101 @@
+1、创建应用的唯一session。
+
+	Cluster cluster = Cluster.builder()
+	                         .addContactPoint("192.168.22.161")
+	                         .build();
+	
+	这里构建一个集群对象，”192.168.22.161″ 是cassandra的种子节点(seed node).
+	
+	Session session = cluster.connect();
+	
+	你也可以针对一个特定的keyspace获取一个session
+	
+	Session session = cluster.connect("mykeyspace");
+	
+	session是线程安全的，所以一个应用中，你可以只有一个session实例，官方建议一个keyspace一个session。
+2、session可以直接支持执行cql语句。
+
+	String cql = "select * from mykeyspace.tablename;";
+	session.execute(cql);
+	
+	你完全可以用这种方式完成任意操作，记住cql语句后面一定要带分号。
+
+3、如果你不想繁琐的去拼字符串，你可以用com.datastax.driver.core.Querybuilder。
+
+	insert 一条记录String cql = “insert into mykeyspace.tablename(a,b) values(1,2);”
+	你可以这样写：
+	
+	session.execute(
+	QueryBuilder.insertInto("mykeyspace", "tablename")
+	            .values(new String[]{"a","b"}, new Object[]{1,2}));
+	
+	delete 记录String cql = “delete from mykeyspace.tablename where a=1″;
+	你可以这样写：
+	
+	session.execute(QueryBuilder.delete()
+		   .from("mykeyspace", "tablename")
+		   .where(QueryBuilder.eq("a", 1)));
+	
+	update 记录String cql = “update mykeyspace.tablename set b=2 where a=1″
+	
+	session.execute(QueryBuilder.update("mykeyspace", "tablename")
+	       .with(QueryBuilder.set("b", 2))
+	       .where(QueryBuilder.eq("a", 1)));
+	
+	select 记录String cql = “select a, b from mykeyspace.tablename where a>1 and b<0″
+	
+	
+	ResultSet result = session.execute(QueryBuilder.select("a","b")
+			.from("mykeyspace", "tablename")
+			.where(QueryBuilder.gt("a", 1))
+			.and(QueryBuilder.lt("a", 1)));
+	Iterator<Row> iterator = result.iterator();
+	while(iterator.hasNext())
+	{
+		Row row = iterator.next();
+		row.getInt("a");
+		row.getInt("b");
+	}
+	
+	注：cassandra的查询的支持是很有限的，对于查询的限制可以参考：
+	http://zhaoyanblog.com/archives/164.html
+
+4、你也可以像jdbc那样使用预编译占位符的方式。
+
+	BoundStatement bindStatement = 
+	session.prepare(
+	"select * from mykeyspace.tablename where a=? and b=?")
+	.bind("1","2");
+	session.execute(bindStatement);
+
+	或者
+	
+	PreparedStatement prepareStatement = 
+	session.prepare(
+	"select * from mykeyspace.tablename where a=? and b=?");
+	BoundStatement bindStatement = 
+	     new BoundStatement(prepareStatement).bind("1","2");
+	session.execute(bindStatement);
+
+	或者
+	Insert insert = 
+	QueryBuilder.insertInto("mykeyspace", "tablename")
+	.values(new String[]{"a","b"}, 
+	new Object[]{QueryBuilder.bindMarker(),QueryBuilder.bindMarker()});
+	BoundStatement bindStatement = 
+	    new BoundStatement(session.prepare(insert)).bind("1","2");
+	session.execute(bindStatement);
+
+5、批量batch的方式也有的。
+	BatchStatement batchStatement = new BatchStatement();
+	batchStatement.add(insert);
+	batchStatement.add(bindStatement);
+	session.execute(batchStatement);
+	
+	注：批量操作只支持INSERT,UPDATE,DELETE
+	
+	
+	
+	
+	
+	

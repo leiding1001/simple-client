@@ -1,0 +1,57 @@
+============>timeTask1.start....<==============
+============>timeTask4.start....<==============
+============>timeTask3.start....<==============
+============>timeTask2.start....<==============
+============>timeTask0.start....<==============
+timeTask1[spend time=>99042,startIndex=>40,endIndex=>80]
+timeTask3[spend time=>99243,startIndex=>120,endIndex=>160]
+timeTask2[spend time=>99455,startIndex=>80,endIndex=>120]
+timeTask0[spend time=>99712,startIndex=>0,endIndex=>40]
+timeTask4[spend time=>99831,startIndex=>160,endIndex=>200]
+============>timeTask4.start....<==============
+============>timeTask0.start....<==============
+============>timeTask1.start....<==============
+============>timeTask2.start....<==============
+============>timeTask3.start....<==============
+timeTask3[spend time=>94979,startIndex=>320,endIndex=>360]
+timeTask2[spend time=>95510,startIndex=>280,endIndex=>320]
+timeTask4[spend time=>95551,startIndex=>360,endIndex=>400]
+timeTask1[spend time=>95580,startIndex=>240,endIndex=>280]
+timeTask0[spend time=>95681,startIndex=>200,endIndex=>240]
+============>timeTask1.start....<==============
+============>timeTask2.start....<==============
+============>timeTask3.start....<==============
+============>timeTask0.start....<==============
+============>timeTask4.start....<==============
+timeTask4[spend time=>95546,startIndex=>560,endIndex=>600]
+timeTask3[spend time=>95546,startIndex=>520,endIndex=>560]
+timeTask0[spend time=>95552,startIndex=>400,endIndex=>440]
+timeTask2[spend time=>95764,startIndex=>480,endIndex=>520]
+timeTask1[spend time=>95919,startIndex=>440,endIndex=>480]
+============>timeTask1.start....<==============
+============>timeTask3.start....<==============
+============>timeTask4.start....<==============
+============>timeTask2.start....<==============
+============>timeTask0.start....<==============
+timeTask0[spend time=>96170,startIndex=>600,endIndex=>640]
+timeTask1[spend time=>96178,startIndex=>640,endIndex=>680]
+timeTask4[spend time=>96369,startIndex=>760,endIndex=>800]
+timeTask2[spend time=>96520,startIndex=>680,endIndex=>720]
+timeTask3[spend time=>96772,startIndex=>720,endIndex=>760]
+
+
+============>timeTask0.start....<==============
+============>timeTask3.start....<==============
+============>timeTask2.start....<==============
+============>timeTask4.start....<==============
+============>timeTask1.start....<==============
+timeTask3[spend time=>97051,startIndex=>920,endIndex=>960]
+timeTask2[spend time=>97072,startIndex=>880,endIndex=>920]
+timeTask1[spend time=>97078,startIndex=>840,endIndex=>880]
+timeTask0[spend time=>97115,startIndex=>800,endIndex=>840]
+timeTask4[spend time=>97161,startIndex=>960,endIndex=>1000]
+
+
+
+
+'Hu099920150928','Hu099920150927','Hu099920150926',
