@@ -1,0 +1,59 @@
+vagant
+
+Nosql(Not only sql)
+
+分类
+列存储数据库。
+	这部分数据库通常是用来应对分布式存储的海量数据。键仍然存在，但是它们的特点是指向了多个列。
+	这些列是由列家族来安排的。如：Cassandra, HBase, Riak.
+分类		列存储数据库[3] 
+Examples举例 	Cassandra, HBase, Riak	
+典型应用场景	分布式的文件系统
+数据模型	以列簇式存储，将同一列数据存在一起
+优点		查找速度快，可扩展性强，更容易进行分布式扩展
+缺点		功能相对局限
+
+
+
+cassandra新版驱动，使用SchemaBuilder进行表的操作
+http://zhaoyanblog.com/archives/626.html
+java实现cassandra的增删改查
+http://zhaoyanblog.com/archives/180.html
+
+
+
+Starting Cassandra as a Stand-Alone Process¶
+
+Start the Cassandra Java server process starting with the seed nodes:
+
+    $ cd <install_location>
+    $ bin/cassandra
+
+    -f starts Cassandra in the foreground.
+
+Starting Cassandra as a Service¶
+
+Packaged installations provide startup scripts in /etc/init.d for starting Cassandra as a service. The service runs as the cassandra user.
+
+To start the Cassandra service, you must have root or sudo permissions:
+
+    $ sudo service cassandra start
+
+Note
+
+On Enterprise Linux systems, the Cassandra service runs as a java process. On Debian systems, the Cassandra service runs as a jsvc process.
+Stopping Cassandra as a Stand-Alone Process¶
+
+To stop the Cassandra process, find the Cassandra Java process ID (PID), and then kill the process using its PID number:
+
+    $ ps auwx | grep cassandra
+    $ sudo kill <pid>
+
+Stopping Cassandra as a Service¶
+
+To stop the Cassandra service, you must have root or sudo permissions:
+
+    $ sudo service cassandra stop
+
+
+				

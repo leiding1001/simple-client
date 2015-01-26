@@ -1,0 +1,66 @@
+http://www.datastax.com/documentation/cql/3.1/cql/cql_using/cqlUseUDT.html
+//cql说明
+
+CREATE KEYSPACE demodb WITH REPLICATION = { 'class' : 'NetworkTopologyStrategy', 'datacenter1' : 1 };
+
+create type addrkeyspace.positionInfo(
+	date timestamp ,
+	longitude double,
+	latitude double,
+	accuracy float,
+	gasoline float,
+	speed float
+);
+CREATE TYPE addrkeyspace.coordinate (
+	longitude double,
+	latitude double
+);
+create table addrkeyspace.caraddress(
+	id text ,
+	starttime timestamp ,
+	data set<frozen <positionInfo>>,
+	max_coordinate frozen<coordinate>,
+	min_coordinate frozen<coordinate>,
+	PRIMARY KEY(id,startTime)
+); 
+
+CREATE KEYSPACE addrkeyspace WITH replication = {'class': 'NetworkTopologyStrategy', 'datacenter1': '1'}  AND durable_writes = true;
+
+CREATE TYPE addrkeyspace.coordinate (
+    longitude double,
+    latitude double
+);
+
+CREATE TYPE addrkeyspace.positioninfo (
+    date timestamp,
+    longitude double,
+    latitude double,
+    accuracy float,
+    gasoline float,
+    speed float
+);
+
+CREATE TABLE addrkeyspace.caraddress (
+    id text,
+    starttime timestamp,
+    data set<frozen<positioninfo>>,
+    max_coordinate frozen<coordinate>,
+    min_coordinate frozen<coordinate>,
+    PRIMARY KEY (id, starttime)
+) WITH CLUSTERING ORDER BY (starttime ASC);
+    AND bloom_filter_fp_chance = 0.01
+    AND caching = '{"keys":"ALL", "rows_per_partition":"NONE"}'
+    AND comment = ''
+    AND compaction = {'min_threshold': '4', 'class': 'org.apache.cassandra.db.compaction.SizeTieredCompactionStrategy', 'max_threshold': '32'}
+    AND compression = {'sstable_compression': 'org.apache.cassandra.io.compress.LZ4Compressor'}
+    AND dclocal_read_repair_chance = 0.1
+    AND default_time_to_live = 0
+    AND gc_grace_seconds = 864000
+    AND max_index_interval = 2048
+    AND memtable_flush_period_in_ms = 0
+    AND min_index_interval = 128
+    AND read_repair_chance = 0.0
+    AND speculative_retry = '99.0PERCENTILE';
+CREATE INDEX DATA_INDEX ON addrkeyspace.caraddress (data);
+
+
